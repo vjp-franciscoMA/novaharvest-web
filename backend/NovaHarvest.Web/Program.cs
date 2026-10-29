@@ -1,8 +1,42 @@
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 app.MapStaticAssets();
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => Results.Content(
+$"""
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>NovaHarvest - Inicio</title>
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+    <header>
+        <img src="/img/logo.png" alt="Logo de NovaHarvest" width="200">
+        <h1>NovaHarvest</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/about">Acerca de</a>
+            <a href="/status">Estado</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Inicio</h1>
+        <p>En el Valle del Jerte se producen excedentes de fruta y verdura que muchas veces no llegan a venderse.</p>
+        <p>NovaHarvest busca conectar a los productores con personas y organizaciones que puedan aprovechar estos productos.</p>
+        <p>La idea es reducir el desperdicio alimentario y facilitar el aprovechamiento de los excedentes.</p>
+    </main>
+
+    <footer>
+        NovaHarvest · IES Valle del Jerte · {DateTime.Now.Year}
+    </footer>
+</body>
+</html>
+""",
+"text/html"));
 
 app.Run();
