@@ -19,8 +19,10 @@ docker compose down
 Una vez iniciados los servicios, se puede acceder a la aplicación desde el navegador mediante las siguientes direcciones:
 
 - **Inicio:** http://localhost:8080/
+- **Excedente destacado:** http://localhost:8080/surplus
 - **Acerca de:** http://localhost:8080/about
 - **Estado del servidor:** http://localhost:8080/status
+- **Justificante de reserva:** http://localhost:8080/ticket
 - **Hoja de estilos:** http://localhost:8080/css/site.css
 - **Logotipo:** http://localhost:8080/img/logo.png
 
@@ -43,8 +45,10 @@ ASP.NET Core mostrará en la terminal la dirección local en la que se está eje
 Utilizando la dirección que aparezca en la terminal, se puede acceder a las siguientes rutas:
 
 - **Inicio:** `/`
+- **Excedente destacado:** `/surplus`
 - **Acerca de:** `/about`
 - **Estado del servidor:** `/status`
+- **Justificante de reserva:** `/ticket`
 - **Hoja de estilos:** `/css/site.css`
 - **Logotipo:** `/img/logo.png`
 
@@ -54,7 +58,7 @@ Por ejemplo, si la terminal muestra `http://localhost:5079`, la página de inici
 
 El proyecto utiliza dos servicios cuando se ejecuta con Docker: Nginx y el backend de ASP.NET Core.
 
-El navegador envía las peticiones a Nginx, que actúa como proxy inverso y las reenvía al backend. ASP.NET Core, mediante Kestrel, genera las páginas HTML y sirve los archivos estáticos, como la hoja de estilos y el logotipo.
+El navegador envía las peticiones a Nginx, que actúa como proxy inverso y las reenvía al backend. ASP.NET Core, mediante Kestrel y Razor Pages, genera las páginas HTML y sirve los archivos estáticos, como la hoja de estilos y el logotipo.
 
 ```text
 Navegador
@@ -71,8 +75,10 @@ ASP.NET Core (Kestrel)
 Puerto interno 8080
     |
     +-- Página de inicio (/)
+    +-- Excedente destacado (/surplus)
     +-- Acerca de (/about)
     +-- Estado del servidor (/status)
+    +-- Justificante de reserva (/ticket)
     +-- CSS (/css/site.css)
     +-- Logotipo (/img/logo.png)
 ```
@@ -82,3 +88,21 @@ El servicio web publica el puerto 8080 del equipo y lo conecta con el puerto 80 
 El backend no publica ningún puerto directamente al equipo, ya que las peticiones externas pasan primero por Nginx.
 
 Cuando se ejecuta sin Docker mediante `dotnet run`, el navegador se conecta directamente al servidor Kestrel, sin pasar por Nginx. En este caso, se utiliza la dirección y el puerto que ASP.NET Core muestra en la terminal.
+
+## Páginas
+
+En la siguiente tabla se indican las páginas de la aplicación, sus archivos y la función que realiza cada una.
+
+| URL | Archivo `.cshtml` | PageModel |
+|---|---|---|
+| `/` | `Pages/Index.cshtml` | No tiene |
+| `/surplus` | `Pages/Surplus.cshtml` | `Pages/Surplus.cshtml.cs` (`SurplusModel`) |
+| `/about` | `Pages/About.cshtml` | No tiene |
+| `/status` | `Pages/Status.cshtml` | `Pages/Status.cshtml.cs` (`StatusModel`) |
+| `/ticket` | `Pages/Reservations/Ticket.cshtml` | `Pages/Reservations/Ticket.cshtml.cs` (`TicketModel`) |
+
+### Archivos especiales de Pages
+
+- **`_ViewImports.cshtml`:** permite compartir directivas entre las páginas, como `@using` y `@namespace`.
+- **`_ViewStart.cshtml`:** indica qué estructura se utilizará por defecto en las páginas.
+- **`Shared/_Layout.cshtml`:** contiene los elementos comunes de la web, como la cabecera, el menú y el pie de página. `@RenderBody()` muestra el contenido de cada página.
