@@ -1,0 +1,34 @@
+@page
+@model SurplusModel
+
+@{
+    ViewData["Title"] = "Excedente destacado";
+}
+
+<h1>Excedente destacado</h1>
+
+<h2>@Model.Surplus.Product</h2>
+
+<p>Productor: @Model.Surplus.Producer (@Model.Surplus.Village)</p>
+
+<p>Cosecha: @Model.Surplus.HarvestDate.ToString("dd/MM/yyyy")</p>
+
+<p>Consumir antes del: @Model.ConsumeBefore.ToString("dd/MM/yyyy")</p>
+
+<p class="@(Model.Urgent ? "urgent" : null)">Días para consumirlo: @Model.DaysToConsume</p>
+
+<p>Precio original: @Model.Surplus.PricePerKg.ToString("C") / kg</p>
+
+<p>Precio de excedente: @Model.SurplusPrice.ToString("C") / kg</p>
+
+<p>Kilos disponibles: @Model.RemainingKg</p>
+
+<p>@Model.FullBoxes cajas de 5 kg y @Model.LooseKg kg sueltos</p>
+
+<p>Valor del excedente: @Model.SurplusValue.ToString("C")</p>
+
+<p>Estado: @Model.Status</p>
+
+<p>Nota del productor: @Model.ProducerNote</p>
+
+<button disabled="@(!Model.HasStock)">Reservar</button>
