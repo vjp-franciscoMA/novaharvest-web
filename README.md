@@ -91,7 +91,7 @@ Cuando se ejecuta sin Docker mediante `dotnet run`, el navegador se conecta dire
 
 ## Páginas
 
-En la siguiente tabla se indican las páginas de la aplicación, sus archivos y la función que realiza cada una.
+En la siguiente tabla se recogen las páginas de la aplicación, indicando la URL de cada una, su archivo .cshtml y el PageModel asociado, cuando lo tiene.
 
 | URL | Archivo `.cshtml` | PageModel |
 |---|---|---|
