@@ -26,6 +26,10 @@ En la UT2 tenía los `MapGet` en `Program.cs` y escribía el HTML dentro de cade
 
 En mi proyecto tengo varios ejemplos de etiquetas Razor. Una expresión implícita aparece en `Surplus.cshtml` con `@Model.Surplus.Product`, que genera `<h2>Cereza Picota</h2>`. Una expresión explícita aparece en `class="@(Model.Urgent ? "urgent" : null)"`, que añade `class="urgent"` si se cumple la condición y, si no, no genera ese atributo. Un bloque `@{ }` aparece en `About.cshtml` con `ViewData["Title"] = "Acerca de";`, que no genera HTML directamente, pero permite que el layout muestre `<title>Acerca de - NovaHarvest</title>`. También he añadido el comentario `@* Página con información sobre NovaHarvest *@`, que Razor elimina y no aparece en el HTML generado. Por último, en `About.cshtml` utilizo `@@novaharvest`, que se muestra como `@novaharvest`. En cambio, `info@novaharvest.es` solo necesita una arroba porque Razor reconoce que forma parte de una dirección de correo y la deja como texto normal. Sin embargo, para mostrar `@novaharvest` tengo que escribir dos arrobas porque Razor puede interpretar una sola como el inicio de código C#. Al poner dos, consigo que en la página aparezca una sola arroba.
 
+![Código Razor y HTML generado](capturas/p3-expresiones-razor.png)
+
+![Bloque Razor, comentario y arrobas en el código fuente](capturas/p3-bloque-comentario-arrobas.png)
+
 ### 4. Sintaxis
 
 En la primera prueba cambié `@Model.SurplusPrice` por `@Model.SurplusPrize` y, al ejecutar `dotnet build`, me apareció el error CS1061 porque `SurplusModel` no tiene ninguna propiedad llamada `SurplusPrize`. La propiedad correcta es `SurplusPrice`, por eso no compila.
@@ -175,3 +179,9 @@ Un ejemplo de cálculo que tengo en `SurplusModel` es `RemainingKg = Surplus.Ava
 Si cargo `/surplus` tres veces, se crean **tres objetos `SurplusModel`**, uno por cada petición. Cada objeto se utiliza durante su petición y deja de utilizarse cuando termina. Por eso, los datos del modelo no se conservan automáticamente entre las distintas cargas de la página.
 
 En cambio, `SiteStats` es una clase estática y su contador se mantiene en la memoria del proceso del servidor, por lo que es compartido entre las distintas peticiones. No se crea un contador nuevo cada vez que se carga una página y su valor se mantiene hasta que se reinicia el backend. En mi proyecto, el contador aumenta cada vez que se carga la página `/status`, porque en el código de esa página se suma una visita.
+
+![Propiedades del modelo](capturas/p10-propiedades-modelo.png)
+
+![Cálculos del modelo](capturas/p10-calculos-modelo.png)
+
+![Vista del excedente destacado](capturas/p10-vista-surplus.png)
