@@ -158,7 +158,7 @@ Primero, he sustituido temporalmente el contador por una variable local dentro d
 
 ![Contador con una variable local](capturas/p9-contador-local.png)
 
-Después, he vuelto a utilizar `SiteStats.Visits` y he abierto la página desde dos navegadores diferentes. He comprobado que el contador es compartido entre ambos, porque al entrar desde uno de ellos también aumenta el número de visitas de la misma aplicación. Esto ocurre porque `SiteStats.Visits` es una variable `static` que guarda su valor en la memoria del proceso del servidor.
+Después, he vuelto a utilizar `SiteStats.Visits` y he abierto la página desde dos navegadores diferentes. He comprobado que el contador es compartido entre ambos navegadores, porque al entrar desde uno de ellos también aumenta el número de visitas que aparece en el otro. Esto ocurre porque `SiteStats.Visits` es una variable `static` que guarda su valor en la memoria del proceso del servidor.
 
 ![Contador compartido entre dos navegadores](capturas/p9-contador-compartido.png)
 
